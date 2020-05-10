@@ -1,17 +1,28 @@
-notifications:
-  email: false
-git:
-  quiet: true
-  depth: false
 language: node_js
 node_js: lts/*
 install: true
-script:
-- npm i
-- npm t
-- npm run test-js-with-ts
-- npm run test-js-with-babel
+jobs:
+  include:
+  - stage: test
+    script:
+    - cd $TRAVIS_BUILD_DIR && npm i
+    - cd $TRAVIS_BUILD_DIR && npm run test-ts-jest
+  - stage: deploy
+    script: skip
+    before_deploy:
+    - cd $TRAVIS_BUILD_DIR && npm i
+    - cd $TRAVIS_BUILD_DIR && npm run gh
+    env:
+    - secure: "IZE2/5gdrz+khXqEolXLuPoSOfRQgLo+OP/sQKFZkyNZxUNFR+NVDj2IQmsoc/KFUJKmLp2Lm+vQuLm46zOc3D0fw0auBb0S4TAnzj35oCqUYGZrwSlSR0D0VSVVCcCkbv4mQUkNAYe9rvDzyGCgSBAPWyx47R8WqspXGoRR/pbZeG7Xk6uwUrO5EZ9h15OcCtq4jXFHsBevnV4MYN/E7be7xnryS36wHOc9Xpi6SUjaWWSWQfbl0jEN7CWIG89mM/FyAOMW9c+WlkgZ3RyviU6BvcMVTcW81HqzmobeV5CcTi5jNci2V2QREfXQPwzdkYdLYTmTMupe8zaVdLHeFuwQFF2xlUXCvTz+tZYJaECypt4yhTgE6otFuyrlHcXGQVrPwVl1ZB7vA0zaX8tDZyqbeBkcahnVS9odC/jE2msCw+MtsbBWSWeCdFpH9Y28K8gKGiBsAutQ8OMV9I8rwqEAe5k/YJD8nz8y4hf27wEL2hza373xWp6dwuAJwjMBmli9fzq6p1cxxFf8i1n91fdTxb/Q/h4eQIW2gW+dxCH2FAO/F0vK0ExJMYtt2uNaXvLx+1NOYCDvfabDY/QlE2PGwptjvZR5T1eOEsgY7cz1cbyoLMJpLJPClX5MRatX5Y7sxRsaJQH9Maw8nCSPPzK2rcizWjSRTPf4M6CDKnA="
+    deploy: &pages
+      provider: pages
+      skip-cleanup: true
+      keep-history: true
+      target_branch: gh-pages
+      github-token: "$GITHUB_TOKEN"
+      on:
+        branch: master
+      local-dir: $TRAVIS_BUILD_DIR/dist
 cache:
-  npm: true
   directories:
   - ~/.n*
