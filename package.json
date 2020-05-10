@@ -2,6 +2,7 @@
   "name": "plain-spa",
   "version": "1.0.0",
   "description": "An App",
+  "main": "src/index.html",
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
