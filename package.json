@@ -1,0 +1,85 @@
+{
+  "name": "plain-spa",
+  "version": "1.0.0",
+  "description": "An App",
+  "scripts": {
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "parcel build src/index.html --no-cache --no-source-maps",
+    "preserve": "npm run build",
+    "serve": "browser-sync start --no-notify --single -s ./dist/",
+    "dev": "parcel src/index.html",
+    "test": "npm run test-ts-jest -- --watchAll",
+    "test-ts-jest": "jest --preset=ts-jest --testEnvironment=node --reporters=default --reporters=jest-junit --collect-coverage",
+    "test-js-with-ts": "jest --preset=ts-jest/presets/js-with-ts --testEnvironment=node --reporters=default --reporters=jest-junit --collect-coverage",
+    "test-js-with-babel": "jest --preset=ts-jest/presets/js-with-babel --testEnvironment=node --reporters=default --reporters=jest-junit --collect-coverage",
+    "start": "pm2 start 'npm run dev' --name app",
+    "restart": "pm2 restart app",
+    "stop": "pm2 kill",
+    "logs": "pm2 logs",
+    "gh": "npm run build -- --public-url '/plain-spa/'",
+    "predeploy": "npm run gh",
+    "deploy": "gh-pages -e ./ -d ./dist -s '{*.*,.*,*,**}' --branch gh-pages --dotfiles=true -m \"Github Pages $(date +%Y-%m-%d) deployment\""
+  },
+  "keywords": [
+    "ts",
+    "pm2",
+    "jest",
+    "scss",
+    "rimraf",
+    "parcel",
+    "ts-jest",
+    "gh-pages",
+    "jest-junit",
+    "typescript",
+    "browser-sync",
+    "webfontloader"
+  ],
+  "author": "daggerok",
+  "license": "MIT",
+  "dependencies": {
+    "core-js": "3.6.5",
+    "webfontloader": "1.6.28"
+  },
+  "devDependencies": {
+    "@babel/core": "7.9.6",
+    "@babel/preset-env": "7.9.6",
+    "@babel/preset-typescript": "7.9.0",
+    "@jest/core": "26.0.1",
+    "@jest/globals": "26.0.1",
+    "@jest/reporters": "26.0.1",
+    "@jest/types": "26.0.1",
+    "@types/jest": "25.2.1",
+    "@types/node": "13.13.5",
+    "@types/webfontloader": "1.6.29",
+    "browser-sync": "2.26.7",
+    "gh-pages": "2.2.0",
+    "jest": "26.0.1",
+    "jest-junit": "10.0.0",
+    "parcel-bundler": "1.12.4",
+    "pm2": "4.4.0",
+    "rimraf": "3.0.2",
+    "sass": "1.26.5",
+    "ts-jest": "25.5.1",
+    "typescript": "3.8.3"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current",
+            "browsers": [
+              "last 2 versions",
+              "safari >= 7",
+              "chrome >= 36",
+              "firefox >= 28"
+            ]
+          }
+        }
+      ],
+      "@babel/preset-typescript"
+    ]
+  }
+}
