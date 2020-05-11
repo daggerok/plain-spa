@@ -8,6 +8,7 @@ WebFont.load({
   },
 });
 
+/*
 async function asyncData() {
   return Promise.resolve('ololo trololo');
 }
@@ -20,3 +21,4 @@ async function asyncAppend(data: string) {
 }
 
 asyncData().then(asyncAppend);
+*/

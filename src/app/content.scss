@@ -2,5 +2,24 @@
 @import "mixins";
 
 .excel__content {
+  height: $cellHeight;
+  text-align: center;
 
+  div {
+    display: flex;
+
+    & > span {
+      min-width: $cellWidth;
+      border: $testBorder;
+    }
+
+    span:not(.first-column) {
+      font-size: small;
+    }
+
+    .first-column {
+      display: inline-block;
+      min-width: $firstColumnWidth;
+    }
+  }
 }
