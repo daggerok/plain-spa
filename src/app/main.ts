@@ -13,9 +13,10 @@ async function asyncData() {
 }
 
 async function asyncAppend(data: string) {
-  await document.body.appendChild(
-    document.createTextNode(data)
-  );
+  const htmlDivElement: HTMLDivElement = document.createElement('div');
+  htmlDivElement.appendChild(document.createTextNode(data));
+  await document.querySelector('.excel__content')
+                .appendChild(htmlDivElement);
 }
 
 asyncData().then(asyncAppend);
