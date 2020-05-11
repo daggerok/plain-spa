@@ -3,4 +3,13 @@
 
 .excel__header {
   padding: $headerPadding;
+  display: flex;
+
+  .excel__header__title {
+    flex: 1;
+  }
+
+  span:not(.excel__header__title) {
+    padding-left: $headerPadding / 2;
+  }
 }
